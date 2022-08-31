@@ -7,7 +7,7 @@ extern Black::Application* Black::CreateApplication();
 int main(int argc, char** argv) {
 	BK_INIT;
 	BK_CORE_WARN("Initialized Log!");
-	int a = 32;
+	int a = 56;
 
 	BK_INFO("Hello! Var={0}", a);
 	auto app = Black::CreateApplication();
