@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Black {
 
 	class BLACK_API MouseMovedEvent : public Event {

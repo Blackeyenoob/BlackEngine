@@ -2,9 +2,6 @@
 
 #include "Black/Core.h"
 
-#include <string.h>
-#include <functional>
-
 namespace Black {
 
 
