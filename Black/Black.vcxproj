@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>BK_PLATFORM_WINDOWS;BK_BUILD_DLL;BK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -147,6 +147,10 @@
     <ClInclude Include="src\Black\Application.h" />
     <ClInclude Include="src\Black\Core.h" />
     <ClInclude Include="src\Black\EntryPoint.h" />
+    <ClInclude Include="src\Black\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Black\Events\Event.h" />
+    <ClInclude Include="src\Black\Events\KeyEvent.h" />
+    <ClInclude Include="src\Black\Events\MouseEvent.h" />
     <ClInclude Include="src\Black\Log.h" />
   </ItemGroup>
   <ItemGroup>

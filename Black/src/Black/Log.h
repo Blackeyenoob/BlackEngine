@@ -3,6 +3,7 @@
 #include <memory>
 #include "Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
 
 namespace Black {
 
@@ -19,7 +20,7 @@ namespace Black {
 		static std::shared_ptr<spdlog::logger> s_ClientLogger;
 	};
 }
-//引擎日志宏
+//引擎日志宏初始化
 #define BK_INIT ::Black::Log::Init()
 
 //核心日志宏

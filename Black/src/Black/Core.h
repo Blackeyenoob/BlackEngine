@@ -9,3 +9,5 @@
 #else
 	#error Black only Supports Windows!
 #endif // BK_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)
