@@ -40,9 +40,6 @@
     <ClCompile Include="src\Black\Application.cpp">
       <Filter>Black</Filter>
     </ClCompile>
-    <ClCompile Include="src\Black\Events\KeyEvent.cpp">
-      <Filter>Black\Events</Filter>
-    </ClCompile>
     <ClCompile Include="src\Black\Log.cpp">
       <Filter>Black</Filter>
     </ClCompile>

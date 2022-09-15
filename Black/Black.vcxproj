@@ -162,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Black\Application.cpp" />
-    <ClCompile Include="src\Black\Events\KeyEvent.cpp" />
     <ClCompile Include="src\Black\Log.cpp" />
     <ClCompile Include="src\bkpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
