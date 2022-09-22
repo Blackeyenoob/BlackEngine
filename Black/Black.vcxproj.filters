@@ -35,6 +35,8 @@
       <Filter>Black</Filter>
     </ClInclude>
     <ClInclude Include="src\bkpch.h" />
+    <ClInclude Include="src\Black\Window.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Black\Application.cpp">
@@ -44,5 +46,6 @@
       <Filter>Black</Filter>
     </ClCompile>
     <ClCompile Include="src\bkpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>

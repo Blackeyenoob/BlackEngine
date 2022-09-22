@@ -1,5 +1,4 @@
 #include <Black.h>
-
 class Sandbox :public Black::Application {
 public:
 	Sandbox() {
