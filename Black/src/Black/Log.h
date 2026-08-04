@@ -28,11 +28,11 @@ namespace Black {
 #define BK_CORE_INFO(...)        ::Black::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define BK_CORE_WARN(...)		 ::Black::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define BK_CORE_ERROR(...)		 ::Black::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define BK_CORE_FATAL(...)		 ::Black::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define BK_CORE_FATAL(...)		 ::Black::Log::GetCoreLogger()->error(__VA_ARGS__)
 
 //客户端日志宏
 #define BK_TRACE(...)         ::Black::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define BK_INFO(...)          ::Black::Log::GetClientLogger()->info(__VA_ARGS__)
 #define BK_WARN(...)		  ::Black::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define BK_ERROR(...)		  ::Black::Log::GetClientLogger()->error(__VA_ARGS__)
-#define BK_FATAL(...)		  ::Black::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define BK_FATAL(...)		  ::Black::Log::GetClientLogger()->error(__VA_ARGS__)
