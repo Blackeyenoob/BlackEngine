@@ -34,6 +34,7 @@ namespace Black {
 	
 	class BLACK_API Event {
 		friend class EventDispatcher;
+		friend class Application;
 	public:
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;

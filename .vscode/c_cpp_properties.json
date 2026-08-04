@@ -1,0 +1,81 @@
+{
+    "configurations": [
+        {
+            "name": "BlackEngine-Debug",
+            "includePath": [
+                "${workspaceFolder}/Black/src",
+                "${workspaceFolder}/Black/src/Black",
+                "${workspaceFolder}/Black/src/Black/Events",
+                "${workspaceFolder}/Black/src/Platform/Windows",
+                "${workspaceFolder}/Black/vendor/spdlog/include",
+                "${workspaceFolder}/Black/vendor/GLFW/include",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt"
+            ],
+            "defines": [
+                "BK_PLATFORM_WINDOWS",
+                "BK_DEBUG",
+                "BK_BUILD_DLL",
+                "_DEBUG",
+                "_MBCS"
+            ],
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64",
+            "compilerArgs": [],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/Black/src",
+                    "${workspaceFolder}/Black/vendor/spdlog/include",
+                    "${workspaceFolder}/Black/vendor/GLFW/include",
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "BlackEngine-Release",
+            "includePath": [
+                "${workspaceFolder}/Black/src",
+                "${workspaceFolder}/Black/src/Black",
+                "${workspaceFolder}/Black/src/Black/Events",
+                "${workspaceFolder}/Black/src/Platform/Windows",
+                "${workspaceFolder}/Black/vendor/spdlog/include",
+                "${workspaceFolder}/Black/vendor/GLFW/include",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt"
+            ],
+            "defines": [
+                "BK_PLATFORM_WINDOWS",
+                "BK_RELEASE",
+                "BK_BUILD_DLL",
+                "NDEBUG",
+                "_MBCS"
+            ],
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64",
+            "compilerArgs": [],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/Black/src",
+                    "${workspaceFolder}/Black/vendor/spdlog/include",
+                    "${workspaceFolder}/Black/vendor/GLFW/include",
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}

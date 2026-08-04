@@ -1,11 +1,12 @@
 #include <Black.h>
-class Sandbox :public Black::Application {
+#include "ExampleLayer.h"
+
+class Sandbox : public Black::Application {
 public:
 	Sandbox() {
-
+		PushLayer(new ExampleLayer());
 	}
 	~Sandbox() {
-
 	}
 };
 

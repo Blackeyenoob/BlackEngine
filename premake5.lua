@@ -13,6 +13,8 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder
 IncludeDir = {}
 IncludeDir["GLFW"] = "Black/vendor/GLFW/include"
+IncludeDir["Glad"] = "Black/vendor/glad/include"
+IncludeDir["glm"] = "Black/vendor/glm"
  
 include "Black/vendor/GLFW"
 
@@ -30,14 +32,25 @@ project "Black"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glad/src/glad.c",
+        "%{prj.name}/vendor/glad/include/glad/glad.h",
+        "%{prj.name}/vendor/glad/include/KHR/khrplatform.h"
     }
+
+    -- Disable PCH for glad.c (it's a C file, not C++)
+    filter "files:**/glad.c"
+        flags "NoPCH"
+
+    filter {}
 
     includedirs
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -94,6 +107,7 @@ project "Sandbox"
     includedirs
     {
        "Black/vendor/spdlog/include",
+       "Black/vendor/glm",
        "Black/src;"
     }
 

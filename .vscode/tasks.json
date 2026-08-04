@@ -1,0 +1,151 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "cwd": "${workspaceFolder}"
+    },
+    "tasks": [
+        {
+            "label": "Premake: Generate VS2022 Project",
+            "type": "process",
+            "command": "${workspaceFolder}/vendor/bin/premake/premake5.exe",
+            "args": [
+                "vs2022"
+            ],
+            "problemMatcher": [],
+            "group": "build",
+            "detail": "Run premake5 to generate VS2022 solution and project files"
+        },
+        {
+            "label": "Build: Debug",
+            "type": "process",
+            "command": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/MSBuild.exe",
+            "args": [
+                "${workspaceFolder}/Black.sln",
+                "/t:Build",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64",
+                "/m:1",
+                "/v:minimal",
+                "/nr:false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build Debug|x64 (default, Ctrl+Shift+B)"
+        },
+        {
+            "label": "Build: Release",
+            "type": "process",
+            "command": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/MSBuild.exe",
+            "args": [
+                "${workspaceFolder}/Black.sln",
+                "/t:Build",
+                "/p:Configuration=Release",
+                "/p:Platform=x64",
+                "/m:1",
+                "/v:minimal",
+                "/nr:false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build",
+            "detail": "Build Release|x64"
+        },
+        {
+            "label": "Build: Dist",
+            "type": "process",
+            "command": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/MSBuild.exe",
+            "args": [
+                "${workspaceFolder}/Black.sln",
+                "/t:Build",
+                "/p:Configuration=Dist",
+                "/p:Platform=x64",
+                "/m:1",
+                "/v:minimal",
+                "/nr:false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build",
+            "detail": "Build Dist|x64 (final release, fully optimized)"
+        },
+        {
+            "label": "Rebuild: Debug",
+            "type": "process",
+            "command": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/MSBuild.exe",
+            "args": [
+                "${workspaceFolder}/Black.sln",
+                "/t:Rebuild",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64",
+                "/m:1",
+                "/v:minimal",
+                "/nr:false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build",
+            "detail": "Clean and Rebuild Debug|x64 (full recompile)"
+        },
+        {
+            "label": "Clean: Output Directories",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "-Recurse",
+                "-Force",
+                "${workspaceFolder}/bin",
+                "${workspaceFolder}/bin-int",
+                "-ErrorAction",
+                "SilentlyContinue"
+            ],
+            "problemMatcher": [],
+            "detail": "Delete bin/ and bin-int/ output directories"
+        },
+        {
+            "label": "Build: Black DLL Only",
+            "type": "process",
+            "command": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/MSBuild.exe",
+            "args": [
+                "${workspaceFolder}/Black/Black.vcxproj",
+                "/t:Build",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64",
+                "/m:1",
+                "/v:minimal",
+                "/nr:false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build",
+            "detail": "Build only the engine core Black.dll"
+        },
+        {
+            "label": "Build: Sandbox Only",
+            "type": "process",
+            "command": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/MSBuild.exe",
+            "args": [
+                "${workspaceFolder}/Sandbox/Sandbox.vcxproj",
+                "/t:Build",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64",
+                "/p:BuildProjectReferences=false",
+                "/m:1",
+                "/v:minimal",
+                "/nr:false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build",
+            "detail": "Build only Sandbox.exe (skip deps, Black.dll must exist)"
+        },
+        {
+            "label": "Full Pipeline: Premake + Build Debug",
+            "dependsOn": [
+                "Premake: Generate VS2022 Project",
+                "Build: Debug"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "group": "build",
+            "detail": "Full pipeline: generate project then build Debug"
+        }
+    ]
+}

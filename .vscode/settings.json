@@ -1,0 +1,57 @@
+{
+    "files.encoding": "utf8",
+    "files.autoGuessEncoding": true,
+    "files.eol": "\n",
+    "editor.formatOnSave": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cpptools",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.intelliSenseMode": "msvc-x64",
+    "C_Cpp.dimInactiveRegions": true,
+    "files.associations": {
+        "*.h": "cpp",
+        "*.hpp": "cpp",
+        "*.cpp": "cpp",
+        "*.c": "c",
+        "*.lua": "lua",
+        "bkpch.h": "cpp",
+        "bkpch.cpp": "cpp",
+        "core.h": "cpp",
+        "event.h": "cpp",
+        "log.h": "cpp",
+        "window.h": "cpp",
+        "application.h": "cpp",
+        "entrypoint.h": "cpp",
+        "premake5.lua": "lua"
+    },
+    "files.exclude": {
+        "**/bin": true,
+        "**/bin-int": true,
+        "**/.vs": true,
+        "**/*.user": true,
+        "**/*.obj": true,
+        "**/*.pch": true,
+        "**/*.pdb": true,
+        "**/*.ilk": true,
+        "**/*.exp": true,
+        "**/*.lib": true,
+        "**/*.idb": true
+    },
+    "search.exclude": {
+        "**/bin": true,
+        "**/bin-int": true,
+        "**/.vs": true,
+        "**/vendor/spdlog": true,
+        "**/vendor/GLFW/src": true
+    },
+    "terminal.integrated.env.windows": {
+        "PATH": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64;C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64;${env:PATH}",
+        "INCLUDE": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/include;C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt;C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um;C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+        "LIB": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/lib/x64;C:/Program Files (x86)/Windows Kits/10/Lib/10.0.19041.0/ucrt/x64;C:/Program Files (x86)/Windows Kits/10/Lib/10.0.19041.0/um/x64"
+    },
+    "workbench.editor.highlightModifiedTabs": true,
+    "explorer.sortOrder": "type"
+}

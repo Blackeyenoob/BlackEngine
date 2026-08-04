@@ -1,0 +1,90 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(Sandbox) Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox/Sandbox.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "${workspaceFolder}/bin/Debug-windows-x86_64/Black;${env:PATH}"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "vsdbg",
+            "preLaunchTask": "Build: Debug",
+            "setupCommands": [
+                {
+                    "description": "启用标准断点行为",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(Sandbox) Debug (No Build)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox/Sandbox.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "${workspaceFolder}/bin/Debug-windows-x86_64/Black;${env:PATH}"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "vsdbg",
+            "setupCommands": [
+                {
+                    "description": "启用标准断点行为",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(Sandbox) Release",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Release-windows-x86_64/Sandbox/Sandbox.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin/Release-windows-x86_64/Sandbox",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "${workspaceFolder}/bin/Release-windows-x86_64/Black;${env:PATH}"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "vsdbg",
+            "preLaunchTask": "Build: Release"
+        },
+        {
+            "name": "(Sandbox) Debug - External Console",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox/Sandbox.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "${workspaceFolder}/bin/Debug-windows-x86_64/Black;${env:PATH}"
+                }
+            ],
+            "externalConsole": true,
+            "MIMode": "vsdbg",
+            "preLaunchTask": "Build: Debug"
+        }
+    ]
+}

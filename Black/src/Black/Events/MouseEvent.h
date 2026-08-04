@@ -37,6 +37,7 @@ namespace Black {
 		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseScrolledEvent: " << GetXOffset() << ", " << GetYOffset();
+			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)

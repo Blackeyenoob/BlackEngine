@@ -1,6 +1,22 @@
 #pragma once
+#include "bkpch.h"
 #include "Black/Application.h"
 #include "Black/Log.h"
-// ��������
-#include "Black/EntryPoint.h";
+// 渲染系统
+#include "Black/Renderer/Shader.h"
+#include "Black/Renderer/Buffer.h"
+#include "Black/Renderer/VertexArray.h"
+#include "Black/Renderer/RendererAPI.h"
+#include "Black/Renderer/RenderCommand.h"
+#include "Black/Renderer/Renderer.h"
+#include "Black/Renderer/OrthographicCamera.h"
+// 输入系统
+#include "Black/Input.h"
+#include "Black/KeyCode.h"
+#include "Black/MouseCode.h"
+// 层系统
+#include "Black/Layer.h"
+#include "Black/LayerStack.h"
+// 程序入口点
+#include "Black/EntryPoint.h"
 
