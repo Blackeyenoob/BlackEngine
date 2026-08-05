@@ -1,59 +1,86 @@
 #include "bkpch.h"
-#include "Black/Renderer/VertexArray.h"
-#include "Black/Renderer/Buffer.h"
-#include "Black/Renderer/RendererAPI.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
 
 #include <glad/glad.h>
 
 namespace Black {
 
-	class OpenGLVertexArray : public VertexArray
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 	{
-	public:
-		OpenGLVertexArray()
+		switch (type)
 		{
-			glCreateVertexArrays(1, &m_RendererID);
+			case ShaderDataType::Float:    return GL_FLOAT;
+			case ShaderDataType::Float2:   return GL_FLOAT;
+			case ShaderDataType::Float3:   return GL_FLOAT;
+			case ShaderDataType::Float4:   return GL_FLOAT;
+			case ShaderDataType::Mat3:     return GL_FLOAT;
+			case ShaderDataType::Mat4:     return GL_FLOAT;
+			case ShaderDataType::Int:      return GL_INT;
+			case ShaderDataType::Int2:     return GL_INT;
+			case ShaderDataType::Int3:     return GL_INT;
+			case ShaderDataType::Int4:     return GL_INT;
+			case ShaderDataType::Bool:     return GL_BOOL;
 		}
 
-		~OpenGLVertexArray()
-		{
-			glDeleteVertexArrays(1, &m_RendererID);
-		}
+		BK_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		return 0;
+	}
 
-		void Bind() const override
-		{
-			glBindVertexArray(m_RendererID);
-		}
+	OpenGLVertexArray::OpenGLVertexArray()
+	{
+		BK_PROFILE_FUNCTION();
 
-		void Unbind() const override
-		{
-			glBindVertexArray(0);
-		}
+		glCreateVertexArrays(1, &m_RendererID);
+	}
 
-		void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override
-		{
-			glBindVertexArray(m_RendererID);
-			vertexBuffer->Bind();
+	OpenGLVertexArray::~OpenGLVertexArray()
+	{
+		BK_PROFILE_FUNCTION();
 
-			const auto& layout = vertexBuffer->GetLayout();
-			uint32_t vertexBufferIndex = 0;
-			for (const auto& element : layout)
+		glDeleteVertexArrays(1, &m_RendererID);
+	}
+
+	void OpenGLVertexArray::Bind() const
+	{
+		BK_PROFILE_FUNCTION();
+
+		glBindVertexArray(m_RendererID);
+	}
+
+	void OpenGLVertexArray::Unbind() const
+	{
+		BK_PROFILE_FUNCTION();
+
+		glBindVertexArray(0);
+	}
+
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
+	{
+		BK_PROFILE_FUNCTION();
+
+		BK_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
+
+		glBindVertexArray(m_RendererID);
+		vertexBuffer->Bind();
+
+		const auto& layout = vertexBuffer->GetLayout();
+		for (const auto& element : layout)
+		{
+			switch (element.Type)
 			{
-				switch (element.Type)
-				{
 				case ShaderDataType::Float:
 				case ShaderDataType::Float2:
 				case ShaderDataType::Float3:
 				case ShaderDataType::Float4:
 				{
-					glEnableVertexAttribArray(vertexBufferIndex);
-					glVertexAttribPointer(vertexBufferIndex,
+					glEnableVertexAttribArray(m_VertexBufferIndex);
+					glVertexAttribPointer(m_VertexBufferIndex,
 						element.GetComponentCount(),
-						GL_FLOAT,
+						ShaderDataTypeToOpenGLBaseType(element.Type),
 						element.Normalized ? GL_TRUE : GL_FALSE,
 						layout.GetStride(),
 						(const void*)element.Offset);
-					vertexBufferIndex++;
+					m_VertexBufferIndex++;
 					break;
 				}
 				case ShaderDataType::Int:
@@ -62,13 +89,13 @@ namespace Black {
 				case ShaderDataType::Int4:
 				case ShaderDataType::Bool:
 				{
-					glEnableVertexAttribArray(vertexBufferIndex);
-					glVertexAttribIPointer(vertexBufferIndex,
+					glEnableVertexAttribArray(m_VertexBufferIndex);
+					glVertexAttribIPointer(m_VertexBufferIndex,
 						element.GetComponentCount(),
-						element.Type == ShaderDataType::Bool ? GL_BOOL : GL_INT,
+						ShaderDataTypeToOpenGLBaseType(element.Type),
 						layout.GetStride(),
 						(const void*)element.Offset);
-					vertexBufferIndex++;
+					m_VertexBufferIndex++;
 					break;
 				}
 				case ShaderDataType::Mat3:
@@ -77,43 +104,34 @@ namespace Black {
 					uint8_t count = element.GetComponentCount();
 					for (uint8_t i = 0; i < count; i++)
 					{
-						glEnableVertexAttribArray(vertexBufferIndex);
-						glVertexAttribPointer(vertexBufferIndex,
+						glEnableVertexAttribArray(m_VertexBufferIndex);
+						glVertexAttribPointer(m_VertexBufferIndex,
 							count,
-							GL_FLOAT,
+							ShaderDataTypeToOpenGLBaseType(element.Type),
 							element.Normalized ? GL_TRUE : GL_FALSE,
 							layout.GetStride(),
 							(const void*)(element.Offset + sizeof(float) * count * i));
-						vertexBufferIndex++;
+						glVertexAttribDivisor(m_VertexBufferIndex, 1);
+						m_VertexBufferIndex++;
 					}
 					break;
 				}
 				default:
 					BK_CORE_ASSERT(false, "Unknown ShaderDataType!");
-				}
 			}
-
-			m_VertexBuffers.push_back(vertexBuffer);
 		}
 
-		void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override
-		{
-			glBindVertexArray(m_RendererID);
-			indexBuffer->Bind();
-			m_IndexBuffer = indexBuffer;
-		}
+		m_VertexBuffers.push_back(vertexBuffer);
+	}
 
-		const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
-		const Ref<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
-	private:
-		uint32_t m_RendererID;
-		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
-		Ref<IndexBuffer> m_IndexBuffer;
-	};
-
-	Ref<VertexArray> VertexArray::Create()
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
-		return CreateRef<OpenGLVertexArray>();
+		BK_PROFILE_FUNCTION();
+
+		glBindVertexArray(m_RendererID);
+		indexBuffer->Bind();
+
+		m_IndexBuffer = indexBuffer;
 	}
 
 }

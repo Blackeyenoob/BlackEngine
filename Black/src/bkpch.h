@@ -1,16 +1,32 @@
 #pragma once
-//Ô¤±àÍ·ÎÄ¼þ
+
+#include "Black/Core/PlatformDetection.h"
+
+#ifdef BK_PLATFORM_WINDOWS
+	#ifndef NOMINMAX
+		#define NOMINMAX
+	#endif
+#endif
+
 #include <iostream>
 #include <memory>
 #include <utility>
 #include <algorithm>
 #include <functional>
-#include <sstream>
 
 #include <string>
+#include <sstream>
+#include <array>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Black/Log.h"
+#include "Black/Core/Base.h"
 
+#include "Black/Core/Log.h"
+
+#include "Black/Debug/Instrumentor.h"
+
+#ifdef BK_PLATFORM_WINDOWS
+	#include <Windows.h>
+#endif

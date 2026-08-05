@@ -1,24 +1,32 @@
 #pragma once
 
-#include "Black/Core.h"
 #include "Black/Renderer/RenderCommand.h"
+
+#include "Black/Renderer/OrthographicCamera.h"
 #include "Black/Renderer/Shader.h"
-#include "Black/Renderer/VertexArray.h"
 
 namespace Black {
 
-	class BLACK_API Renderer
+	class Renderer
 	{
 	public:
 		static void Init();
 		static void Shutdown();
+		
+		static void OnWindowResize(uint32_t width, uint32_t height);
 
-		static void BeginScene();
+		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
 
-		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0);
+		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
-		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+	private:
+		struct SceneData
+		{
+			glm::mat4 ViewProjectionMatrix;
+		};
+
+		static Scope<SceneData> s_SceneData;
 	};
-
 }

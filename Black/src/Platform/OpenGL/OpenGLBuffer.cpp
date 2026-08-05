@@ -1,85 +1,95 @@
 #include "bkpch.h"
-#include "Black/Renderer/Buffer.h"
-#include "Black/Renderer/RendererAPI.h"
+#include "Platform/OpenGL/OpenGLBuffer.h"
 
 #include <glad/glad.h>
 
 namespace Black {
 
-	// VertexBuffer
-	class OpenGLVertexBuffer : public VertexBuffer
+	/////////////////////////////////////////////////////////////////////////////
+	// VertexBuffer /////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
+
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
 	{
-	public:
-		OpenGLVertexBuffer(float* vertices, uint32_t size)
-		{
-			glCreateBuffers(1, &m_RendererID);
-			glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-			glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-		}
+		BK_PROFILE_FUNCTION();
 
-		~OpenGLVertexBuffer()
-		{
-			glDeleteBuffers(1, &m_RendererID);
-		}
-
-		void Bind() const override
-		{
-			glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		}
-
-		void Unbind() const override
-		{
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-		}
-
-		const BufferLayout& GetLayout() const override { return m_Layout; }
-		void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
-	private:
-		uint32_t m_RendererID;
-		BufferLayout m_Layout;
-	};
-
-	// IndexBuffer
-	class OpenGLIndexBuffer : public IndexBuffer
-	{
-	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t size)
-			: m_Count(size / sizeof(uint32_t))
-		{
-			glCreateBuffers(1, &m_RendererID);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
-		}
-
-		~OpenGLIndexBuffer()
-		{
-			glDeleteBuffers(1, &m_RendererID);
-		}
-
-		void Bind() const override
-		{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-		}
-
-		void Unbind() const override
-		{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		}
-
-		uint32_t GetCount() const override { return m_Count; }
-	private:
-		uint32_t m_RendererID;
-		uint32_t m_Count;
-	};
-
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
-	{
-		return CreateRef<OpenGLVertexBuffer>(vertices, size);
+		glCreateBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
-		return CreateRef<OpenGLIndexBuffer>(indices, size);
+		BK_PROFILE_FUNCTION();
+
+		glCreateBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+	}
+
+	OpenGLVertexBuffer::~OpenGLVertexBuffer()
+	{
+		BK_PROFILE_FUNCTION();
+
+		glDeleteBuffers(1, &m_RendererID);
+	}
+
+	void OpenGLVertexBuffer::Bind() const
+	{
+		BK_PROFILE_FUNCTION();
+
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+	}
+
+	void OpenGLVertexBuffer::Unbind() const
+	{
+		BK_PROFILE_FUNCTION();
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+	// IndexBuffer //////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
+
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
+		: m_Count(count)
+	{
+		BK_PROFILE_FUNCTION();
+
+		glCreateBuffers(1, &m_RendererID);
+		
+		// GL_ELEMENT_ARRAY_BUFFER is not valid without an actively bound VAO
+		// Binding with GL_ARRAY_BUFFER allows the data to be loaded regardless of VAO state. 
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+	}
+
+	OpenGLIndexBuffer::~OpenGLIndexBuffer()
+	{
+		BK_PROFILE_FUNCTION();
+
+		glDeleteBuffers(1, &m_RendererID);
+	}
+
+	void OpenGLIndexBuffer::Bind() const
+	{
+		BK_PROFILE_FUNCTION();
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+	}
+
+	void OpenGLIndexBuffer::Unbind() const
+	{
+		BK_PROFILE_FUNCTION();
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 }

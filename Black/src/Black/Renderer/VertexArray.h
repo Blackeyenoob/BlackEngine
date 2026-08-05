@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Black/Core.h"
 #include "Black/Renderer/Buffer.h"
+
+#include <memory>
 
 namespace Black {
 
-	class BLACK_API VertexArray
+	class VertexArray
 	{
 	public:
 		virtual ~VertexArray() = default;

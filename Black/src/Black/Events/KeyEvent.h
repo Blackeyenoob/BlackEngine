@@ -1,52 +1,72 @@
 #pragma once
 
-#include "Event.h"
-
+#include "Black/Events/Event.h"
+#include "Black/Core/KeyCodes.h"
 
 namespace Black {
 
-	class BLACK_API KeyEvent : public Event {
+	class KeyEvent : public Event
+	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
-		KeyEvent(int keycode)
+		KeyEvent(const KeyCode keycode)
 			: m_KeyCode(keycode) {}
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
-	class BLACK_API KeyPressedEvent : public KeyEvent {
+	class KeyPressedEvent : public KeyEvent
+	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+		KeyPressedEvent(const KeyCode keycode, bool isRepeat = false)
+			: KeyEvent(keycode), m_IsRepeat(isRepeat) {}
 
-		inline int GetRepeatCount() const { return m_RepeatCount; }
+		bool IsRepeat() const { return m_IsRepeat; }
 
-		std::string ToString() const override {
+		std::string ToString() const override
+		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+			ss << "KeyPressedEvent: " << m_KeyCode << " (repeat = " << m_IsRepeat << ")";
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
 	private:
-		int m_RepeatCount;
+		bool m_IsRepeat;
 	};
 
-	class BLACK_API KeyReleasedEvent : public KeyEvent {
+	class KeyReleasedEvent : public KeyEvent
+	{
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(const KeyCode keycode)
 			: KeyEvent(keycode) {}
 
-		std::string ToString() const override {
+		std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "KeyReleasedEvent: " << m_KeyCode;
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyReleased) 
+		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
+	class KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(const KeyCode keycode)
+			: KeyEvent(keycode) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
 }

@@ -2,5 +2,14 @@
 .vs/
 bin/
 bin-int/
+.temp/
 # Files
 *.user
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.exe
+*.o
