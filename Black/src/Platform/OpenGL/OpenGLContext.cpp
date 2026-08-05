@@ -25,7 +25,7 @@ namespace Black {
 		BK_CORE_INFO("  Renderer: {0}", (const char*)glGetString(GL_RENDERER));
 		BK_CORE_INFO("  Version: {0}", (const char*)glGetString(GL_VERSION));
 
-		BK_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Black requires at least OpenGL version 4.5!");
+		BK_CORE_ERROR("Black Engine recommends OpenGL 4.5+, but will attempt to run on available version.");
 	}
 
 	void OpenGLContext::SwapBuffers()

@@ -1,14 +1,14 @@
 // MSDF text shader
 
 #type vertex
-#version 450 core
+#version 330 core
 
 layout(location = 0) in vec3 a_Position;
 layout(location = 1) in vec4 a_Color;
 layout(location = 2) in vec2 a_TexCoord;
 layout(location = 3) in int a_EntityID;
 
-layout(std140, binding = 0) uniform Camera
+layout(std140) uniform Camera
 {
 	mat4 u_ViewProjection;
 };
@@ -32,7 +32,7 @@ void main()
 }
 
 #type fragment
-#version 450 core
+#version 330 core
 
 layout(location = 0) out vec4 o_Color;
 layout(location = 1) out int o_EntityID;
@@ -46,7 +46,7 @@ struct VertexOutput
 layout (location = 0) in VertexOutput Input;
 layout (location = 2) in flat int v_EntityID;
 
-layout (binding = 0) uniform sampler2D u_FontAtlas;
+uniform sampler2D u_FontAtlas;
 
 float screenPxRange() {
 	const float pxRange = 2.0; // set to distance field's pixel range

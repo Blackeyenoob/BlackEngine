@@ -16,7 +16,7 @@ namespace Black {
 
 		static void CreateTextures(bool multisampled, uint32_t* outID, uint32_t count)
 		{
-			glCreateTextures(TextureTarget(multisampled), count, outID);
+			glGenTextures(count, outID);
 		}
 
 		static void BindTexture(bool multisampled, uint32_t id)
@@ -54,7 +54,7 @@ namespace Black {
 			}
 			else
 			{
-				glTexStorage2D(GL_TEXTURE_2D, 1, format, width, height);
+				glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
 
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -123,7 +123,7 @@ namespace Black {
 			m_DepthAttachment = 0;
 		}
 
-		glCreateFramebuffers(1, &m_RendererID);
+		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 
 		bool multisample = m_Specification.Samples > 1;
@@ -218,8 +218,10 @@ namespace Black {
 		BK_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size());
 
 		auto& spec = m_ColorAttachmentSpecifications[attachmentIndex];
-		glClearTexImage(m_ColorAttachments[attachmentIndex], 0,
-			Utils::BlackFBTextureFormatToGL(spec.TextureFormat), GL_INT, &value);
+		// Note: glClearTexImage is GL 4.4+, use traditional clear approach
+		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+		glClearBufferiv(GL_COLOR, attachmentIndex, &value);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 }
